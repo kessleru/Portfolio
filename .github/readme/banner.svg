@@ -2,17 +2,49 @@
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#000000"/>
-      <stop offset="100%" stop-color="#2a0a52"/>
+      <stop offset="100%" stop-color="#1a0633"/>
     </linearGradient>
     <filter id="sombra" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000000" flood-opacity=".28"/>
     </filter>
     <clipPath id="recorte"><rect width="428" height="252" rx="18"/></clipPath>
+    <clipPath id="moldura"><rect width="1200" height="380" rx="24"/></clipPath>
+    <radialGradient id="brilho" cx=".5" cy=".5" r=".5">
+      <stop offset="0%" stop-color="#9d4edd" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#9d4edd" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
   <rect width="1200" height="380" rx="24" fill="url(#bg)"/>
-  <circle cx="1105" cy="60" r="190" fill="#b629f8" opacity="0.1"/>
-  <circle cx="110" cy="360" r="150" fill="#b629f8" opacity="0.08000000000000002"/>
+
+  <g clip-path="url(#moldura)">
+  <circle cx="930" cy="190" r="220" fill="url(#brilho)"/>
+  <g transform="translate(772,96) rotate(45)">
+    <rect x="-7" y="-40" width="14" height="80" fill="#5911bf"/>
+    <rect x="12" y="-40" width="14" height="80" fill="#b629f8"/>
+  </g>
+  <svg x="790" y="34" width="280" height="306" viewBox="0 0 411 449" ><g filter="url(#imglogotigresvg-filter0_d_341_23)">
+<path d="M345.066 350.8C345.6 350.8 359.734 337.199 376.4 320.399L406.667 290.133V174.133L380 147.866C365.333 133.466 353.333 121.066 353.333 120.399C353.336 119.73 360.535 112.131 369.333 103.6L385.333 88.1328V0L381.066 3.06641C378.666 4.66689 360.133 19.2 340 35.333C319.867 51.333 302.533 65.0662 301.6 65.8662C300.4 66.7994 298 65.1996 292.667 60.2666L285.467 53.4668H126.934L119.6 60.1328C115.6 63.7328 111.733 66.7998 111.066 66.7998C110.399 66.7993 107.466 64.7991 104.533 62.3994C100.264 58.7973 34.0016 5.46735 28.4004 1.06641C27.0671 0.133073 26.667 8.93327 26.667 44.2666V88.7998L42.9336 104.399L59.333 119.866L31.7334 147.733L4 175.467V288.8L35.0664 319.866C51.9975 336.797 66.3962 350.796 67.0664 350.8C67.5997 350.8 68 347.733 68 344V337.066L41.333 311.2L14.667 285.2V179.066L72.4004 121.6L130 64.1328H281.467L339.333 121.733L397.333 179.333V284.667L370.667 311.467L344 338.267V344.533C344 347.999 344.4 350.799 345.066 350.8ZM326.4 95.2002C316.268 85.068 308.002 76.2686 308 75.4668C308 74.6668 319.466 64.8 333.6 53.4668C347.599 42.1339 362.132 30.2675 365.866 27.2002C369.6 24.1335 373.067 21.5996 373.733 21.5996C374.267 21.468 374.667 35.4673 374.667 52.3994V83.4668L359.733 98.3994L344.667 113.467L326.4 95.2002ZM52.1338 98.667L37.4668 84.7998L37.333 53.0664C37.333 28.0022 37.7334 21.4676 39.0664 22.3994C39.8664 22.9327 46.1331 27.8668 52.7998 33.4668C59.4664 38.9334 73.7332 50.533 84.5332 59.333L104.267 75.2002L85.5996 93.8662L66.9336 112.533L52.1338 98.667ZM273.066 91.7334C275.466 89.3334 277.333 86.9327 277.333 86.3994C277.314 85.8663 244.788 85.4668 205.2 85.4668H133.066L137.467 90.667L142 95.8662L205.467 96L268.8 96.1328L273.066 91.7334ZM204.4 157.2C206.4 159.066 206.8 159.066 209.333 156.8C211.6 154.666 212 152.8 212 141.2V128.133H255.467L260.667 122.8L265.866 117.467H146.134L151.333 122.8L156.533 128.133H202.8L202.533 141.6C202.4 152.4 202.8 155.467 204.4 157.2ZM281.333 411.467V388.133H285.6C289.2 388.133 292.267 385.734 306.934 371.2L324 354.267V312.267L348.667 287.333L373.333 262.399V198L362.667 187.6V223.467L362.8 259.333L341.6 280.533L320.4 301.733L306.533 277.2L309.6 273.866C311.333 272 319.467 263.867 327.733 255.733L342.667 240.934V166.667L337.333 161.066L332.133 155.467L332 196.133V236.8L316.8 252C303.067 265.733 301.467 266.933 300.267 264.533C299.067 262.267 300.4 260.399 310.667 250.133L322.667 238.267L319.733 235.2C318.133 233.467 316.4 232.133 315.866 232.133C314.661 232.138 288.936 258.264 288.267 260.133C288 260.666 293.867 272.533 301.2 286.533C308.667 300.4 314.667 313.067 314.667 314.533C314.667 317.467 314.267 317.467 294.533 317.467H274.4L269.866 321.467L265.333 325.467L289.6 325.733L314 326.133L314.4 335.066L314.8 344.133H262.133L267.333 349.467L272.533 354.8H309.866L297.866 366.133L286 377.333L264.267 377.467H242.4L226.667 361.2L210.8 344.8L213.733 341.467C215.333 339.6 225.467 329.199 236.267 318.133L256 298.133V220.133H279.467L286.133 213.066C289.733 209.333 297.733 200.533 303.866 193.733L314.934 181.467H291.733L268.667 181.333L290.667 160L312.533 138.8L308.934 135.066L305.333 131.467L246.667 190.133V290.8H165.333V190.133L136.267 161.066C120.4 145.2 106.933 132.133 106.533 132.133C106.133 132.133 104.267 133.734 102.4 135.733L99.0664 139.467L121.066 160.133L143.066 180.8L120.8 181.2C107.733 181.334 98.6669 182 98.9336 182.8C99.2008 183.467 106.533 192.134 115.333 202L131.333 220L143.733 220.133H156V298.133L178.667 321.467L201.333 344.667L185.066 361.066L168.667 377.467H147.333L126 377.333L114.267 366.133L102.533 354.8H139.467L144.667 349.467L149.866 344.133H97.333V325.467H147.066L143.2 321.467L139.333 317.6L118.4 317.467C97.8682 317.467 97.3331 317.333 97.333 314.667C97.333 313.067 103.334 300.4 110.667 286.533C118 272.534 123.999 260.668 124 260.267C124 259.733 117.733 253.2 110 245.467L96.1328 231.6L92.667 234.8L89.2002 238L100.8 249.6C110.799 259.732 112.267 261.733 111.2 264.133C110.134 266.666 108.8 265.734 95.0664 252.667L80 238.533L79.7334 196.533L79.333 154.399L74.4004 160.8L69.333 167.2V240.8L87.2002 258.8L105.2 276.667L99.5996 287.333C96.6664 293.333 93.4667 298.932 92.7998 299.866C91.8665 301.2 86.1334 296.266 69.7334 279.866L48 258.133V188.934L42.667 194.133L37.333 199.333V262.267L62 286.667L86.667 311.066V352.8L104.267 370.399C119.733 385.866 122.533 388.133 126.267 388.133H130.667V412.8L158 440.133L205.2 440.399L252.267 440.533L281.333 411.467ZM126.8 200.133L118.533 190.8H135.6C147.2 190.8 153.334 191.333 154.4 192.399C155.334 193.333 156 197.467 156 201.733V209.467H135.2L126.8 200.133ZM256 202C256 191.467 257.067 190.933 277.066 190.8H293.467L285.2 200.133L276.8 209.467H256V202ZM171.333 300.133H205.733C224.533 300.133 240 300.267 240 300.533C240 300.667 232.4 308.533 222.934 317.866L206 334.8L171.333 300.133ZM152.4 419.866L141.333 408.8V388.133H172.133L188.4 371.467C197.334 362.267 205.067 354.8 205.467 354.8C205.869 354.802 213.601 362.268 222.533 371.467L238.934 388.133H270.667V408.934L259.467 419.866L248.4 430.8H163.333L152.4 419.866Z" fill="url(#imglogotigresvg-paint0_linear_341_23)"/>
+</g>
+<defs>
+<filter id="imglogotigresvg-filter0_d_341_23" x="0" y="0" width="410.667" height="448.533" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_341_23"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_341_23" result="shape"/>
+</filter>
+<linearGradient id="imglogotigresvg-paint0_linear_341_23" x1="445.5" y1="330.5" x2="104.156" y2="39.5834" gradientUnits="userSpaceOnUse">
+<stop stop-color="#6312C8"/>
+<stop offset="1" stop-color="#BA42FF"/>
+</linearGradient>
+</defs></svg>
+  <text x="1030" y="334" font-family="system-ui,'Segoe UI',sans-serif" font-size="20" font-weight="700" fill="#ffffff">Kessleru</text>
+  <rect x="1118" y="328" width="16" height="3" fill="#269e24"/>
+  </g>
 
   <text x="72" y="148" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="52" font-weight="800" letter-spacing="-1" fill="#ffffff">Portfolio</text>
   <text x="74" y="196" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="24" font-weight="600" fill="#ffffff">Portfólio de uma página, em HTML e CSS</text>
@@ -29,27 +61,5 @@
     <circle cx="497" cy="278" r="4" fill="#e2b8ff"/><text x="509" y="283" fill="#e2b8ff">Contato</text>
   </g>
 
-  <g transform="translate(700,64)">
-    <rect width="428" height="252" rx="18" fill="#0d1117" filter="url(#sombra)"/>
-    <g clip-path="url(#recorte)">
-    <rect width="428" height="252" rx="18" fill="#0d1117"/>
-    <path d="M0 18a18 18 0 0 1 18-18h392a18 18 0 0 1 18 18v12H0z" fill="#161b22"/>
-    <circle cx="22" cy="16" r="4.5" fill="#ff5f57"/><circle cx="38" cy="16" r="4.5" fill="#febc2e"/><circle cx="54" cy="16" r="4.5" fill="#28c840"/>
-    <text x="241" y="20" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace,'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji'" font-size="11" fill="#7d8590">css/style.css</text>
-    <g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace,'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji'" font-size="13" fill="#c9d1d9">
-    <text x="20" y="56.3" xml:space="preserve"><tspan fill="#79c0ff">@import</tspan><tspan> </tspan><tspan fill="#7ee787">'global.css'</tspan><tspan>;</tspan></text>
-    <text x="20" y="72.63" xml:space="preserve"><tspan fill="#79c0ff">@import</tspan><tspan> </tspan><tspan fill="#7ee787">'header.css'</tspan><tspan>;</tspan></text>
-    <text x="20" y="88.96" xml:space="preserve"><tspan fill="#79c0ff">@import</tspan><tspan> </tspan><tspan fill="#7ee787">'introducao.css'</tspan><tspan>;</tspan></text>
-    <text x="20" y="105.28999999999999" xml:space="preserve"><tspan fill="#79c0ff">@import</tspan><tspan> </tspan><tspan fill="#7ee787">'experiencia.css'</tspan><tspan>;</tspan></text>
-    <text x="20" y="121.61999999999999" xml:space="preserve"><tspan fill="#79c0ff">@import</tspan><tspan> </tspan><tspan fill="#7ee787">'formacao.css'</tspan><tspan>;</tspan></text>
-    <text x="20" y="137.95" xml:space="preserve"><tspan fill="#79c0ff">@import</tspan><tspan> </tspan><tspan fill="#7ee787">'footer.css'</tspan><tspan>;</tspan></text>
-    <text x="20" y="154.27999999999997" xml:space="preserve"><tspan></tspan></text>
-    <text x="20" y="170.60999999999999" xml:space="preserve"><tspan fill="#7d8590">/* css/header.css */</tspan></text>
-    <text x="20" y="186.94" xml:space="preserve"><tspan fill="#79c0ff">@keyframes</tspan><tspan> </tspan><tspan fill="#f2cc60">blink</tspan><tspan> {</tspan></text>
-    <text x="20" y="203.26999999999998" xml:space="preserve"><tspan>  </tspan><tspan fill="#a5d6ff">0%, 100%</tspan><tspan> { </tspan><tspan fill="#d2a8ff">opacity</tspan><tspan>: 1; }</tspan></text>
-    <text x="20" y="219.59999999999997" xml:space="preserve"><tspan>  </tspan><tspan fill="#a5d6ff">50%</tspan><tspan> { </tspan><tspan fill="#d2a8ff">opacity</tspan><tspan>: 0; }</tspan></text>
-    <text x="20" y="235.93" xml:space="preserve"><tspan>}</tspan></text>
-    </g>
-    </g>
-  </g>
+
 </svg>

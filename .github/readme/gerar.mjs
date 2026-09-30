@@ -6,7 +6,7 @@
  * Sem dependências. Todo texto de terminal nas cenas lá embaixo é cópia de uma
  * execução real — se a saída mudar, cole a nova e rode de novo.
  */
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SAIDA = import.meta.dirname;
@@ -130,7 +130,7 @@ ${linhasSvg(linhas, { x: 20, y0: +(44 + alturaLinha * 0.75).toFixed(1), alturaLi
     </g>`;
 }
 
-function banner({ arquivo, titulo, tagline, stack, pills = [], cores, card, rotulo }) {
+function banner({ arquivo, titulo, tagline, stack, pills = [], cores, card, arte = '', defs = '', circulos = true, rotulo }) {
   const { de, ate, texto = '#ffffff', suave = 'rgba(255,255,255,.78)', circulo = '#ffffff', circuloOpacidade = 0.08 } = cores;
   const tamanhoTitulo = titulo.length > 16 ? 44 : 52;
 
@@ -163,11 +163,14 @@ function banner({ arquivo, titulo, tagline, stack, pills = [], cores, card, rotu
       <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000000" flood-opacity=".28"/>
     </filter>
     <clipPath id="recorte"><rect width="428" height="252" rx="18"/></clipPath>
+    <clipPath id="moldura"><rect width="1200" height="380" rx="24"/></clipPath>${defs}
   </defs>
 
   <rect width="1200" height="380" rx="24" fill="url(#bg)"/>
-  <circle cx="1105" cy="60" r="190" fill="${circulo}" opacity="${circuloOpacidade}"/>
-  <circle cx="110" cy="360" r="150" fill="${circulo}" opacity="${circuloOpacidade * 0.8}"/>
+${circulos ? `  <circle cx="1105" cy="60" r="190" fill="${circulo}" opacity="${circuloOpacidade}"/>
+  <circle cx="110" cy="360" r="150" fill="${circulo}" opacity="${circuloOpacidade * 0.8}"/>` : ''}
+  <g clip-path="url(#moldura)">${arte}
+  </g>
 
   <text x="72" y="148" font-family="${FONTE_UI}" font-size="${tamanhoTitulo}" font-weight="800" letter-spacing="-1" fill="${texto}">${escapar(titulo)}</text>
   <text x="74" y="196" font-family="${FONTE_UI}" font-size="24" font-weight="600" fill="${texto}">${escapar(tagline)}</text>
@@ -177,15 +180,38 @@ function banner({ arquivo, titulo, tagline, stack, pills = [], cores, card, rotu
     ${pillsSvg}
   </g>
 
-  <g transform="translate(700,64)">
+${card ? `  <g transform="translate(700,64)">
     <rect width="428" height="252" rx="18" fill="${card.fundo ?? '#ffffff'}" filter="url(#sombra)"/>
     <g clip-path="url(#recorte)">${card.conteudo}
     </g>
-  </g>
+  </g>` : ''}
 </svg>
 `;
   writeFileSync(join(SAIDA, arquivo), svg);
   console.log(`✓ ${arquivo}  (1200×380)`);
+}
+
+/**
+ * Embute um SVG do próprio repositório (logo, ícone) dentro do banner, na
+ * caixa x/y/largura/altura. Ids ganham prefixo para não colidirem entre si.
+ * `trocar` substitui cores literais (ex.: { white: '#1a1a1a' }).
+ */
+function svgArquivo(caminho, { x, y, largura, altura, trocar = {}, extra = '' }) {
+  let bruto = readFileSync(join(SAIDA, '..', '..', caminho), 'utf8')
+    .replace(/<\?xml[^>]*>/g, '')
+    .replace(/<!--[\s\S]*?-->/g, '');
+  const raiz = bruto.match(/<svg[ >][^>]*>/)[0];
+  const viewBox =
+    (raiz.match(/viewBox="([^"]+)"/) ?? [])[1] ??
+    `0 0 ${parseFloat(raiz.match(/width="([^"]+)"/)[1])} ${parseFloat(raiz.match(/height="([^"]+)"/)[1])}`;
+  const prefixo = caminho.replace(/[^a-z0-9]/gi, '');
+  let miolo = bruto.slice(bruto.indexOf(raiz) + raiz.length, bruto.lastIndexOf('</svg>'));
+  miolo = miolo
+    .replace(/id="([^"]+)"/g, `id="${prefixo}-$1"`)
+    .replace(/url\(#([^)]+)\)/g, `url(#${prefixo}-$1)`)
+    .replace(/href="#([^"]+)"/g, `href="#${prefixo}-$1"`);
+  for (const [de, para] of Object.entries(trocar)) miolo = miolo.split(`"${de}"`).join(`"${para}"`);
+  return `<svg x="${x}" y="${y}" width="${largura}" height="${altura}" viewBox="${viewBox}" ${extra}>${miolo.trim()}</svg>`;
 }
 
 // Atalhos ANSI para escrever as cenas
@@ -202,37 +228,33 @@ const _ = '\x1b[0m';
 // ---------------------------------------------------------------------
 // Cenas
 // ---------------------------------------------------------------------
-// Card: o CSS é um arquivo por seção da página, juntados por @import (css/style.css).
+// Arte: o tigre do próprio site (img/logo-tigre.svg) com o brilho roxo que
+// atravessa a introdução e os dois traços diagonais dos títulos.
 banner({
   arquivo: 'banner.svg',
   titulo: 'Portfolio',
   tagline: 'Portfólio de uma página, em HTML e CSS',
   stack: 'HTML semântico · CSS Grid · animações · Fira Sans',
-  cores: { de: '#000000', ate: '#2a0a52', circulo: '#b629f8', circuloOpacidade: 0.1 },
+  cores: { de: '#000000', ate: '#1a0633' },
+  circulos: false,
   pills: [
     { texto: 'Introdução', fundo: 'rgba(182,41,248,.18)', cor: '#e2b8ff' },
     { texto: 'Experiência', fundo: 'rgba(182,41,248,.18)', cor: '#e2b8ff' },
     { texto: 'Formação', fundo: 'rgba(182,41,248,.18)', cor: '#e2b8ff' },
     { texto: 'Contato', fundo: 'rgba(182,41,248,.18)', cor: '#e2b8ff' },
   ],
-  card: {
-    fundo: '#0d1117',
-    conteudo: cardTerminal({
-      titulo: 'css/style.css',
-      linhas: [
-        `${az}@import${_} ${v}'global.css'${_};`,
-        `${az}@import${_} ${v}'header.css'${_};`,
-        `${az}@import${_} ${v}'introducao.css'${_};`,
-        `${az}@import${_} ${v}'experiencia.css'${_};`,
-        `${az}@import${_} ${v}'formacao.css'${_};`,
-        `${az}@import${_} ${v}'footer.css'${_};`,
-        ``,
-        `${f}/* css/header.css */${_}`,
-        `${az}@keyframes${_} ${am}blink${_} {`,
-        `  ${c}0%, 100%${_} { ${mg}opacity${_}: 1; }`,
-        `  ${c}50%${_} { ${mg}opacity${_}: 0; }`,
-        `}`,
-      ],
-    }),
-  },
+  defs: `
+    <radialGradient id="brilho" cx=".5" cy=".5" r=".5">
+      <stop offset="0%" stop-color="#9d4edd" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#9d4edd" stop-opacity="0"/>
+    </radialGradient>`,
+  arte: `
+  <circle cx="930" cy="190" r="220" fill="url(#brilho)"/>
+  <g transform="translate(772,96) rotate(45)">
+    <rect x="-7" y="-40" width="14" height="80" fill="#5911bf"/>
+    <rect x="12" y="-40" width="14" height="80" fill="#b629f8"/>
+  </g>
+  ${svgArquivo('img/logo-tigre.svg', { x: 790, y: 34, largura: 280, altura: 306 })}
+  <text x="1030" y="334" font-family="system-ui,'Segoe UI',sans-serif" font-size="20" font-weight="700" fill="#ffffff">Kessleru</text>
+  <rect x="1118" y="328" width="16" height="3" fill="#269e24"/>`,
 });
